@@ -1,0 +1,12 @@
+* API doc
+
+:GET /test_token/userId/token
+Response:
+true(bool) if userId and token matches user, else reply is false(bool)
+
+:GET /get_token/userId
+Response:
+token(string)
+
+:GET /user_exists/userId
+true(bool) if user exists else false(bool)
