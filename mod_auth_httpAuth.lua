@@ -18,7 +18,9 @@ local jid_bare = require "util.jid".bare;
 local config = require "core.configmanager";
 local new_sasl = require "util.sasl".new;
 local hosts = hosts;
+
 local baseUrl = config.get("*", "core", "httpBaseUrl");
+local httpAuthSecret = config.get("*", "core", "httpAuthSecret")
 
 local http = require("socket.http")
 local ltn12 = require("ltn12")
@@ -31,6 +33,9 @@ local function getJson(url)
       response = {}
       http.request {
 	 url = url,
+	 headers = {
+	    ["X-prosody-httpAuth"] = httpAuthSecret
+	 },
 	 sink = ltn12.sink.table(response)
       };
       return json.decode(response[1]);
